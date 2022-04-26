@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
 
-
+from rest_framework import status
 from rest_framework import viewsets
-
+from rest_framework.response import Response
 
 from .serializers import EmployeeRequestSerializer
 from main.models import EmployeeRequest
@@ -13,6 +13,13 @@ from main.models import EmployeeRequest
 class EmployeeRequestViewset(viewsets.ModelViewSet):
     queryset = EmployeeRequest.objects.all()
     serializer_class = EmployeeRequestSerializer
+
+    def post(self, request, format=None):
+        serializers = EmployeeRequestSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def create_request(request):

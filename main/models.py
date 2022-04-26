@@ -16,7 +16,7 @@ class EmployeeRequest (models.Model):
     asset_type = models.CharField(max_length=50)
     request_type = models.CharField(max_length=50)
     urgency = models.CharField(max_length=50)
-    quantity = models.IntegerField()
+    quantity = models.CharField(max_length=50)
     status = models.CharField(max_length=50)
 
     def save_request(self):
