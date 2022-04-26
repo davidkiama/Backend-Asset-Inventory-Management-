@@ -33,6 +33,10 @@ body {
   background-color: hsla(189, 27%, 57%, 0.753);
 }
 
+.header {
+  padding: 2rem;
+}
+
 .box {
   display: flex;
   align-items: center;

@@ -12,7 +12,13 @@
 </head>
 
 <body>
-    <header class="header">Header</header>
+    <header class="header">
+
+        <a href="{% url 'create_request' %} " class="btn">Create Request</a>
+        <a href="{% url 'emp_dashboard' %} " class="btn">Dashboard</a>
+
+
+    </header>
     {% block content %}
 
     {% endblock %}

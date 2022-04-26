@@ -12,7 +12,7 @@ class Asset(models.Model):
 
 
 class EmployeeRequest (models.Model):
-    # sender = models.ForeignKey('employee', on_delete=models.CASCADE)
+    # sender = models.ForeignKey('user', on_delete=models.CASCADE)
     asset_type = models.CharField(max_length=50)
     request_type = models.CharField(max_length=50)
     urgency = models.CharField(max_length=50)

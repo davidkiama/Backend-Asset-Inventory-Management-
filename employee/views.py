@@ -7,6 +7,8 @@ from main.models import EmployeeRequest
 
 def create_request(request):
     # Check if user sending the request if of type employee
+
+    # Create request
     if request.method == 'POST':
 
         asset_type = request.POST['asset_type']
@@ -23,3 +25,9 @@ def create_request(request):
 
         return redirect(create_request)
     return render(request, 'create_request.html')
+
+
+def employee_dashboard(request):
+    employee_requests = EmployeeRequest.objects.all()
+
+    return render(request, 'dashboard.html', {'employee_requests': employee_requests})

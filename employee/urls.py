@@ -6,7 +6,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('create_request/', views.create_request, name='create_request')
+    path('create_request/', views.create_request, name='create_request'),
+    path('dashboard/', views.employee_dashboard, name='emp_dashboard')
 ]
 
 if settings.DEBUG:

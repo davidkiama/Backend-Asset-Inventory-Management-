@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<table class="table--requests">
+    <tr>
+        <th>Asset</th>
+        <th>Request</th>
+        <th>Urgency</th>
+        <th>Quantity</th>
+    </tr>
+
+
+    {% for request in employee_requests %}
+    <tr>
+        <td>{{request.asset_type}} </td>
+        <td>{{request.request_type}} </td>
+        <td>{{request.urgency}} </td>
+        <td>{{request.quantity}} </td>
+    </tr>
+    {% endfor %}
+
+
+</table>
+
+{% endblock %}
