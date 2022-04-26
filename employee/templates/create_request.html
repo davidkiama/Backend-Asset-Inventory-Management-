@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="box">
+
+
+    <form method="post" class="form form--create_request">
+        {% csrf_token %}
+        <h3 class="form__title">Create request</h3>
+        <label for="">Asset Type</label>
+        <select name="asset_type" id="asset_type" class="form__select">
+            <option value="">Select Asset Type</option>
+            <option value="desktop">Desktop</option>
+            <option value="laptop">Laptop</option>
+            <option value="printer">Printer</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label for="request_type">Request Type</label>
+        <select name="request_type" id="request_type" class="form__select">
+            <option value="">Select Request Type</option>
+            <option value="repair">Repair</option>
+            <option value="service">Service</option>
+            <option value="other">New</option>
+        </select>
+
+        <label for="urgency">Urgency</label>
+        <select name="urgency" class="form__select">
+            <option value="">Select Urgency</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity">
+
+        <label for="description">Description</label>
+        <textarea name="description" class="form__textarea"></textarea>
+
+        <input type="submit" value="Submit" class="btn">
+
+    </form>
+</div>
+{% endblock %}

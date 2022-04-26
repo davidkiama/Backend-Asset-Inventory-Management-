@@ -1,0 +1,49 @@
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.6;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Lemonada", cursive;
+  font-weight: 300;
+}
+
+.btn {
+  cursor: pointer;
+  background-color: blueviolet;
+  color: black;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  width: fit-content;
+
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  background-color: hsla(189, 27%, 57%, 0.753);
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 80vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  width: fit-content;
+}
