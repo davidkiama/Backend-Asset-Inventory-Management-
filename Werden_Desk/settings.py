@@ -33,7 +33,9 @@ INSTALLED_APPS = [
     'werden_auth',
     'main',
     'employee',
-    'manager'
+    'manager',
+    'rest_framework'
+
 ]
 
 MIDDLEWARE = [

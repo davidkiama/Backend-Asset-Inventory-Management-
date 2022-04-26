@@ -7,7 +7,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('create_request/', views.create_request, name='create_request'),
-    path('dashboard/', views.employee_dashboard, name='emp_dashboard')
+    path('dashboard/',
+         views.EmployeeRequestViewset.as_view({'get': "list"}), name='emp_dashboard')
 ]
 
 if settings.DEBUG:

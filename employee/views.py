@@ -1,8 +1,18 @@
 from django.shortcuts import redirect, render
 
+
+from rest_framework import viewsets
+
+
+from .serializers import EmployeeRequestSerializer
 from main.models import EmployeeRequest
 
 # Create your views here.
+
+
+class EmployeeRequestViewset(viewsets.ModelViewSet):
+    queryset = EmployeeRequest.objects.all()
+    serializer_class = EmployeeRequestSerializer
 
 
 def create_request(request):
