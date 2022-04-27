@@ -9,6 +9,8 @@ class CompanyAsset(models.Model):
     description = models.TextField()
     quantity = models.IntegerField()
 
+    def __str__(self):
+        return self.asset_name
 
 class EmployeeRequest (models.Model):
     # sender = models.ForeignKey('employee', on_delete=models.CASCADE)
