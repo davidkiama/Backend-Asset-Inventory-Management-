@@ -1,0 +1,1 @@
+<p>Manager dashboard</p>
