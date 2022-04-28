@@ -8,4 +8,6 @@ urlpatterns=[
     path('accounts/logout/', views.LogoutView.as_view(), name='logout'),
     path('manager/profile/', views.ManagerProfileView.as_view()),
     path('employee/profile/', views.EmployeeProfileView.as_view()),
+    path('api/manager_profile/manager_profile-id/<int:id>/',views.ManagerProfileDescription.as_view()),
+    path('api/employee_profile/employee_profile-id/<int:id>/',views.EmployeeProfileDescription.as_view()),
 ]
