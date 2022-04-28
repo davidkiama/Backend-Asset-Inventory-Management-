@@ -75,8 +75,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'assets',
-        'USER': 'lewis',
-        'PASSWORD':'lewis29',
+        'USER': 'kiama',
+        'PASSWORD': 'kiamapwd',
+        'HOST': 'localhost',
     }
 }
 
@@ -102,6 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     )
 }
 
