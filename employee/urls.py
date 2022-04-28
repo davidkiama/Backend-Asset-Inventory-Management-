@@ -1,4 +1,5 @@
 from django.urls import path
+
 from . import views
 
 
@@ -6,10 +7,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('create_request/', views.create_request, name='create_request'),
-    path('dashboard/',
+    path('<pk>', views.request_detail, name='request_detail'),
+    path('',
          views.EmployeeRequestViewset.as_view({'get': "list"}), name='emp_dashboard')
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

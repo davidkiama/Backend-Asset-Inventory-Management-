@@ -1,8 +1,11 @@
 from django.shortcuts import redirect, render
+from pkg_resources import empty_provider
 
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
+from django.http.response import JsonResponse
+from rest_framework.decorators import api_view
 
 from .serializers import EmployeeRequestSerializer
 from main.models import EmployeeRequest
@@ -22,29 +25,17 @@ class EmployeeRequestViewset(viewsets.ModelViewSet):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-def create_request(request):
-    # Check if user sending the request if of type employee
+@api_view(['GET', 'POST', 'DELETE'])
+def request_detail(request, pk):
+    try:
+        employee_request = EmployeeRequest.objects.get(pk=pk)
+    except EmployeeRequest.DoesNotExist:
+        return JsonResponse({'message': 'The Request does not exist'}, status=status.HTTP_404_NOT_FOUND)
 
-    # Create request
-    if request.method == 'POST':
+    if request.method == 'GET':
+        request_serializer = EmployeeRequestSerializer(employee_request)
+        return JsonResponse(request_serializer.data)
 
-        asset_type = request.POST['asset_type']
-        request_type = request.POST['request_type']
-        urgency = request.POST['urgency']
-        quantity = request.POST['quantity']
-        description = request.POST['description']
-
-        new_request = EmployeeRequest(
-            asset_type=asset_type, request_type=request_type, urgency=urgency, quantity=quantity, status='open')
-
-        new_request.save_request()
-        print('Request saved to the DB')
-
-        return redirect(create_request)
-    return render(request, 'create_request.html')
-
-
-def employee_dashboard(request):
-    employee_requests = EmployeeRequest.objects.all()
-
-    return render(request, 'dashboard.html', {'employee_requests': employee_requests})
+    if request.method == "DELETE":
+        employee_request.delete()
+    return JsonResponse({'message': 'Request was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
