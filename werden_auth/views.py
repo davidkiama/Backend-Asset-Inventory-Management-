@@ -5,7 +5,7 @@ from rest_framework import status
 from .models import User,ManagerProfile,EmployeeProfile
 from .serializers import RegistrationSerializer,LoginSerializer,ManagerProfileSerializer,EmployeeProfileSerializer
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny
 from django.contrib.auth import authenticate
 
 # Create your views here.
@@ -14,7 +14,7 @@ def index(request):
     return render(request, 'index.html')
 
 class RegistrationView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
     def get(self, request, format=None):
         users=User.objects.all()
         serializers = RegistrationSerializer(users, many=True)
