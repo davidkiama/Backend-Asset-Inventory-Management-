@@ -38,7 +38,6 @@ class RegistrationView(APIView):
 
 
 class LoginView(APIView):
-
     def post(self, request, format=None):
         serializer = LoginSerializer(data=request.data)
         data = {}
@@ -57,13 +56,21 @@ class LoginView(APIView):
         return Response(data)
 
 
+# def check_user_acc(request):
+#     tokens = Token.objects.filter(user=request.user)
+#     for token in tokens:
+#         user = Token.objects.get(key=token).user
+
+#     return user.manager
+
+
 class LogoutView(APIView):
     def get(self, request, format=None):
         tokens = Token.objects.filter(user=request.user)
         for token in tokens:
             token.delete()
         content = {'success': ('User logged out.')}
-        return Response(content, status=status.HTTP_200_OK)
+        return Response(content)
 
 
 class ManagerProfileView(APIView):
