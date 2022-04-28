@@ -6,4 +6,5 @@ from main.models import EmployeeRequest
 class EmployeeRequestSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = EmployeeRequest
-        fields = ('id', 'asset_type', 'request_type', 'urgency', 'status')
+        fields = ('id', 'asset_type', 'request_type',
+                  'quantity', 'urgency', 'status')
