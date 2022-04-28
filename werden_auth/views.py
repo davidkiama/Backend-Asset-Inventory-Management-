@@ -38,31 +38,23 @@ class RegistrationView(APIView):
 
 
 class LoginView(APIView):
-    permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
         serializer = LoginSerializer(data=request.data)
-        if serializer.is_valid():
-            email = serializer.data['email']
-            password = serializer.data['password']
-            user = authenticate(email=email, password=password)
+        data = {}
 
-            if user:
-                if user.is_verified:
-                    if user.is_active:
-                        token = Token.objects.get_or_create(user=user)
-                        return Response({'token': token.key}, status=status.HTTP_200_OK)
-                    else:
-                        content = {'detail': ('User account not active.')}
-                        return Response(content, status=status.HTTP_401_UNAUTHORIZED)
-                else:
-                    content = {'detail': ('User account not verified.')}
-                    return Response(content, status=status.HTTP_401_UNAUTHORIZED)
-            else:
-                content = {'detail': (
-                    'Unable to login with provided credentials.')}
-                return Response(content, status=status.HTTP_401_UNAUTHORIZED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            username = serializer.data['username']
+            password = serializer.data['password']
+
+            user = authenticate(username=username, password=password)
+            token, created = Token.objects.get_or_create(user=user)
+            data['token'] = token.key
+
+        else:
+            data = serializer.errors
+
+        return Response(data)
 
 
 class LogoutView(APIView):
