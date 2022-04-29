@@ -37,6 +37,14 @@ class RegistrationView(APIView):
         return Response(data)
 
 
+def check_user_acc(request):
+    tokens = Token.objects.filter(user=request.user)
+    for token in tokens:
+        user = Token.objects.get(key=token).user
+
+    return user.manager
+
+
 class LoginView(APIView):
     def post(self, request, format=None):
         serializer = LoginSerializer(data=request.data)
@@ -48,20 +56,20 @@ class LoginView(APIView):
 
             user = authenticate(username=username, password=password)
             token, created = Token.objects.get_or_create(user=user)
+
+            user_manager = Token.objects.get(key=token).user.manager
+            if user_manager:
+                user_role = 'Manager'
+            else:
+                user_role = 'Employee'
+
             data['token'] = token.key
+            data['User_role'] = user_role
 
         else:
             data = serializer.errors
 
         return Response(data)
-
-
-# def check_user_acc(request):
-#     tokens = Token.objects.filter(user=request.user)
-#     for token in tokens:
-#         user = Token.objects.get(key=token).user
-
-#     return user.manager
 
 
 class LogoutView(APIView):
