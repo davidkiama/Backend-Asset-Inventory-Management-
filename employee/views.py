@@ -1,5 +1,3 @@
-from django.shortcuts import redirect, render
-from pkg_resources import empty_provider
 
 from rest_framework import status
 from rest_framework import viewsets
@@ -26,7 +24,15 @@ def request_list(request):
         return JsonResponse({'message': 'You must be logged in to view requests'}, status=status.HTTP_401_UNAUTHORIZED)
 
     if request.method == 'GET':
-        employee_requests = EmployeeRequest.objects.all()
+
+        # If logged user is emloyee, show only his requests
+        if user_obj.employee:
+            employee_requests = EmployeeRequest.objects.filter(
+                sender=user_obj.username)
+        else:
+            # If logged user is manager show all requests
+            employee_requests = EmployeeRequest.objects.all()
+
         employee_req_serializer = EmployeeRequestSerializer(
             employee_requests, many=True)
 
