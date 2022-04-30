@@ -8,8 +8,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('<pk>', views.request_detail, name='request_detail'),
-    path('',
-         views.EmployeeRequestViewset.as_view({'get': "list"}), name='emp_dashboard')
+    path('', views.request_list, name='emp_dashboard')
 ]
 
 

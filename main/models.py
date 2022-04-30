@@ -14,7 +14,7 @@ class Asset(models.Model):
 
 
 class EmployeeRequest (models.Model):
-    sender = models.ForeignKey('werden_auth.user', on_delete=models.CASCADE)
+    sender = models.CharField(max_length=100)
     asset_type = models.CharField(max_length=50)
     request_type = models.CharField(max_length=50)
     urgency = models.CharField(max_length=50)
