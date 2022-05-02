@@ -5,6 +5,7 @@ from django.conf import settings
 
 # Create your models here.
 class User(AbstractUser):
+    username=models.CharField(max_length=60,unique=True)
     email=models.EmailField(unique=True)
     manager=models.BooleanField('Manager',default=False)
     employee=models.BooleanField('Employee',default=False)
