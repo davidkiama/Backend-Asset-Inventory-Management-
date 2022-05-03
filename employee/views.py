@@ -16,22 +16,22 @@ from rest_framework.authtoken.models import Token
 @api_view(['GET', 'POST'])
 def request_list(request):
 
-    # try:
-    #     token, created = Token.objects.get_or_create(user=request.user)
-    #     user_obj = Token.objects.get(key=token).user
+    try:
+        token, created = Token.objects.get_or_create(user=request.user)
+        user_obj = Token.objects.get(key=token).user
 
-    # except:
-    #     return JsonResponse({'message': 'You must be logged in to view requests'}, status=status.HTTP_401_UNAUTHORIZED)
+    except:
+        return JsonResponse({'message': 'You must be logged in to view requests'}, status=status.HTTP_401_UNAUTHORIZED)
 
     if request.method == 'GET':
 
-        # # If logged user is emloyee, show only his requests
-        # if user_obj.employee:
-        #     employee_requests = EmployeeRequest.objects.filter(
-        #         sender=user_obj.username)
-        # else:
-        #     # If logged user is manager show all requests
-        employee_requests = EmployeeRequest.objects.all()
+        # If logged user is emloyee, show only his requests
+        if user_obj.employee:
+            employee_requests = EmployeeRequest.objects.filter(
+                sender=user_obj.username)
+        else:
+            # If logged user is manager show all requests
+            employee_requests = EmployeeRequest.objects.all()
 
         employee_req_serializer = EmployeeRequestSerializer(
             employee_requests, many=True)
@@ -39,19 +39,19 @@ def request_list(request):
         return JsonResponse(employee_req_serializer.data, safe=False)
 
      # POST single object
-    # if request.method == 'POST':
-    #     if user_obj.employee:
-    #         # set sender to the user obj
-    #         request.data['sender'] = user_obj.username
-    #     else:
-    #         return JsonResponse({'message': 'You must be an employee to create requests'}, status=status.HTTP_401_UNAUTHORIZED)
+    if request.method == 'POST':
+        if user_obj.employee:
+            # set sender to the user obj
+            request.data['sender'] = user_obj.username
+        else:
+            return JsonResponse({'message': 'You must be an employee to create requests'}, status=status.HTTP_401_UNAUTHORIZED)
 
-    #     serializers = EmployeeRequestSerializer(data=request.data)
-    #     if serializers.is_valid():
+        serializers = EmployeeRequestSerializer(data=request.data)
+        if serializers.is_valid():
 
-    #         serializers.save()
-    #         return Response(serializers.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'DELETE'])
