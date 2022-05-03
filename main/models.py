@@ -1,4 +1,7 @@
+from urllib import request
 from django.db import models
+
+from werden_auth.models import User
 
 # Create your models here.
 
@@ -12,8 +15,14 @@ class CompanyAsset(models.Model):
     def __str__(self):
         return self.asset_name
 
-class EmployeeRequest (models.Model):
-    # sender = models.ForeignKey('employee', on_delete=models.CASCADE)
+
+class EmployeeRequest(models.Model):
+    sender = models.CharField(max_length=100)
+    asset_type = models.CharField(max_length=50)
+    request_type = models.CharField(max_length=50)
+    urgency = models.CharField(max_length=50)
+    quantity = models.CharField(max_length=50)
     status = models.CharField(max_length=50)
-    urgenty = models.CharField(max_length=50)
-    quantity = models.IntegerField()
+
+    def save_request(self):
+        self.save()
