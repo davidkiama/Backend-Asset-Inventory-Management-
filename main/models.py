@@ -4,7 +4,7 @@ from django.db import models
 
 
 class CompanyAsset(models.Model):
-    # creator = models.ForeignKey('manager', on_delete=models.CASCADE)
+    creator = models.CharField(max_length=50, default='manager')
     asset_name = models.CharField(max_length=100)
     description = models.TextField()
     quantity = models.IntegerField()
