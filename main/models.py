@@ -16,6 +16,7 @@ class CompanyAsset(models.Model):
         return self.asset_name
 
 
+
 class EmployeeRequest(models.Model):
     sender = models.CharField(max_length=100)
     asset_type = models.CharField(max_length=50)

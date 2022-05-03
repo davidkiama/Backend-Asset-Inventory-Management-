@@ -5,7 +5,8 @@ import os
 from decouple import config, Csv
 import dj_database_url
 
-import os
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,12 @@ INSTALLED_APPS = [
     'werden_auth',
     'main',
     'employee',
+
+    'manager',
+    'rest_framework',
+
     'manager'
+
 
 
 ]
@@ -87,16 +93,28 @@ WSGI_APPLICATION = 'Werden_Desk.wsgi.application'
 #     }
 # }
 
-# configure to a postgresql database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Werden_Desk',
-        'USER': 'kiama',
-        'PASSWORD': 'kiamapwd',
-        'HOST': 'localhost',
+
+#configure to a postgresql database
+MODE=config("MODE", default="dev")
+DEBUG = config('DEBUG', default=False, cast=bool)
+if config('MODE')=="dev":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+        }
+
     }
-}
+else: 
+    DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
