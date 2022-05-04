@@ -43,7 +43,7 @@ class CompanyAssetsData(APIView):
             assets_serializer = CompanyAssetSerializer(
                 company_assets, many=True)
         else:
-            return JsonResponse({'message': 'You must be logged in to view company assets'}, status=status.HTTP_401_UNAUTHORIZED)
+            return JsonResponse({'message': 'You must be a manager view company assets'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(assets_serializer.data)
 
     def post(self, request, format=None):
