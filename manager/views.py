@@ -1,4 +1,5 @@
 
+from functools import partial
 from django.shortcuts import render
 from main.models import CompanyAsset
 from rest_framework.response import Response
@@ -7,7 +8,11 @@ from rest_framework import status
 from .serializers import CompanyAssetSerializer
 from rest_framework.authtoken.models import Token
 from django.http.response import JsonResponse
+from rest_framework.decorators import api_view
 
+
+from employee.serializers import EmployeeRequestSerializer
+from main.models import EmployeeRequest
 # Create your views here.
 
 
@@ -57,6 +62,7 @@ class CompanyAssetsData(APIView):
             return JsonResponse({'message': 'You must be logged in to create company assets'}, status=status.HTTP_401_UNAUTHORIZED)
 
         if user_obj.manager:
+            request.data['creator'] = user_obj.username
             assets_serializer = CompanyAssetSerializer(data=request.data)
             if assets_serializer.is_valid():
                 assets_serializer.save()
@@ -77,3 +83,33 @@ class CompanyAssetsData(APIView):
         except:
             return JsonResponse({'message': 'You must be logged in to approve/reject company assets'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response()
+
+
+@api_view(['PUT'])
+def request_review(request, pk, review):
+    try:
+        token, created = Token.objects.get_or_create(user=request.user)
+        user_obj = Token.objects.get(key=token).user
+
+    except:
+        return JsonResponse({'message': 'You must be logged in.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    if user_obj.manager:
+        try:
+            employee_request = EmployeeRequest.objects.get(pk=pk)
+        except EmployeeRequest.DoesNotExist:
+            return JsonResponse({'message': 'The Request does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    if review == 'approve':
+        employee_request.status = 'Approved'
+    elif review == 'reject':
+        employee_request.status = 'Rejected'
+    else:
+        return JsonResponse({'message': f'The Command {review} does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = EmployeeRequestSerializer(
+        employee_request, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
