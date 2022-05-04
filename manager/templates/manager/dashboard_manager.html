@@ -1,0 +1,8 @@
+<h3>Manager dashboard</h3>
+<p>Querry assets on db</p>
+{% for asset in companyAssets %}
+<ul>
+    <li>{{ asset.asset_name}}</li>
+    <li>{{ asset.quantity }}</li>
+</ul>
+{% endfor %}
