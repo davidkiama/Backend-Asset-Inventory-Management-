@@ -64,7 +64,7 @@ class LoginView(APIView):
                 user_role = 'Employee'
 
             data['token'] = token.key
-            data['User_role'] = user_role
+            data['user_role'] = user_role
 
         else:
             data = serializer.errors
