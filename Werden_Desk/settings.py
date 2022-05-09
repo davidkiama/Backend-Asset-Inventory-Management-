@@ -35,9 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'werden_auth',
     'rest_framework',
     'rest_framework.authtoken',
-    'werden_auth',
     'main',
     'employee',
     'manager'
