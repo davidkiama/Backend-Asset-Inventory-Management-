@@ -88,13 +88,15 @@ WSGI_APPLICATION = 'Werden_Desk.wsgi.application'
 
 # configure to a postgresql database
 # postgres://zecypagjwoblth:cc0ebc3a9ca5401140e9a50f344c57fe02703d5df7319db1d3a5dab0ee09e4a1@:5432/d30tjk5crqf7em
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Werden_Desk',
-        'USER': 'kiama',
-        'PASSWORD': 'kiamapwd',
-        'HOST': 'localhost',
+        'NAME': 'd9erkkv55ub8t4',
+        'USER': 'hiaveagcnqudnf',
+        'PASSWORD': '3754f6cf4d1f1c7c4731037ba3cd3cc5205fa3b74b0723655d8465b64de5b158',
+        'HOST': '@ec2-54-165-184-219.compute-1.amazonaws.com',
+        'PORT': 5432
     }
 }
 
