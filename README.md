@@ -85,6 +85,6 @@ CLOUDINARY_API_SECRET=CLOUDINARY_SECRET
 
 | Module | Author |
 | ------ | ------ |
-| Authentication   | [Lewir Murgor](https://github.com/lewis-murgor)  |
+| Authentication   | [Lewis Murgor](https://github.com/lewis-murgor)  |
 | Manager App | [John Kimani](https://github.com/John-Kimani) |
 | Employee App | [David Kiama](https://github.com/davidkiama) |
